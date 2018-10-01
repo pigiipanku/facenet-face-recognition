@@ -1,15 +1,16 @@
 import os
 import glob
-import numpy as np
-import cv2
+import datetime
 import pickle
 import sys
+import numpy as np
 import matplotlib.pyplot as plt
-import datetime
+import cv2
 import tensorflow as tf
+from keras import backend as K
 from fr_utils import *
 from inception_blocks_v2 import *
-from keras import backend as K
+
 
 
 #model
@@ -86,20 +87,21 @@ while True:
                 os.mkdir('storage')
             now = datetime.datetime.now()
             d = datetime.datetime(now.year,now.month,now.day,now.hour,now.minute,now.second)
-            face = face_cut
             cv2.imwrite(f'storage/{d}.jpg',face_cut)
             print('--success--')
 
             identity,distance = judge(face_cut,database,FRmodel)
             if distance < 0.52:
-                identity = identity + '.  This is itself!!'
+                print('a')
+                identity = identity + '. Your identity is my school student!!'
 
-            plt.imshow(face)
-            plt.title('{:.2f}'.format(float(img_pred[0][1] * 100))+ '%')
+            plt.imshow(face_cut)
+            plt.title(identity + '{:.2f}'.format(float(100 - 2 * (distance-0.52) * 100)) + '%')
             plt.xticks([]),plt.yticks([])
             plt.show()
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
 cap.release()
 cv2.destroyAllWindows()
 sys.exit()
