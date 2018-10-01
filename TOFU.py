@@ -63,7 +63,7 @@ def judge(image,database,model):
             min_dist = dist
             identity = name
 
-    return identity,dist
+    return identity,min_dist
 
 #judgement
 cap = cv2.VideoCapture(0)
