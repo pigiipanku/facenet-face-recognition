@@ -92,7 +92,6 @@ while True:
 
             identity,distance = judge(face_cut,database,FRmodel)
             if distance < 0.52:
-                print('a')
                 identity = identity + '. Your identity is my school student!!'
 
             plt.imshow(face_cut)
